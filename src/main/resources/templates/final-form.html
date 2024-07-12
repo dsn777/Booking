@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация на тесте</title>
+    <link rel="stylesheet" href="/css/final-form.css"/>
+</head>
+
+<body>
+
+<div class="form-container">
+    <div class="label-and-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true" focusable="false" class="size-8 lg:size-12">
+            <path d="m0 0v24h24v-24z" fill="none"></path>
+            <path d="m6 19.5c.28 0 .5-.22.5-.5 0-3.03 2.47-5.5 5.5-5.5s5.5 2.47 5.5 5.5c0 .28.22.5.5.5s.5-.22.5-.5c0-2.81-1.79-5.2-4.29-6.1 1.36-.78 2.29-2.22 2.29-3.9 0-2.48-2.02-4.5-4.5-4.5s-4.5 2.02-4.5 4.5c0 1.67.93 3.12 2.29 3.9-2.5.91-4.29 3.3-4.29 6.1 0 .28.22.5.5.5zm2.5-10.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"></path>
+        </svg>
+
+        <div class="form-title">Информация о госте</div>
+    </div>
+    <div class="form-divider"></div>
+    <form action="/submit_form" method="post">
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Фамилия</label>
+            <input type="text" id="surname" name="surname" required>
+        </div>
+        <div class="form-group">
+            <label for="patronymic">Отчество</label>
+            <input type="text" id="patronymic" name="patronymic">
+        </div>
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="country">Страна/регион</label>
+            <input type="text" id="country" name="country" required>
+        </div>
+        <div class="form-group">
+            <label for="work-function">Рабочая функция</label>
+            <select id="work-function" name="work_function">
+                <option value="option1">Опция 1</option>
+                <option value="option2">Опция 2</option>
+                <!-- Добавьте дополнительные опции здесь -->
+            </select>
+        </div>
+
+        <button type="submit" class="submit-btn">Готово</button>
+    </form>
+</div>
+
+</body>
+
+</html>

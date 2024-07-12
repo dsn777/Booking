@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Номера в отеле</title>
+    <link rel="stylesheet" th:href="@{/css/rooms.css}"/>
+
+</head>
+<body>
+
+
+<tr th:each="room : ${rooms}">
+    <div class="room-card">
+        <img class="main-img" th:src="@{${room.image_paths[0].path}}" alt="Номер в отеле">
+        <div class="room-info">
+            <h2 th:text="${room.name}"></h2>
+            <div class="main-description-button-container">
+                <button class="btn-description">
+                    Описание номера >
+                </button>
+            </div>
+
+            <form method="GET" action="/book/create_form">
+                <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
+                </button>
+            </form>
+
+            <!--    НОВЫЙ ВСТАВЛЕННЫЙ БЛОК        -->
+            <div class="description-popup">
+                <div class="description-content">
+                    <span class="close">&times;</span>
+                    <div class="left-container">
+                        <div class="carousel">
+
+                            <div th:each="image : ${room.image_paths}">
+                                <img th:src="${image.path}" alt="Изображение номера"/>
+                            </div>
+
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                        <div class="left-container-info">
+                            <h2 th:text="${room.name}"> НАЗВАНИЕ НОМЕРА</h2>
+                            <hr size="1" color="#BBBBBB"/>
+                            <p th:text="${room.description}">ОПИСАНИЕ НОМЕРА</p>
+                        </div>
+
+                        <div class="inner-button-container">
+                            <button class="booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'">
+                                ЦЕНА НОМЕРА
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--   КОНЕЦ НОВОГО ВСТАВЛЕННОГО БЛОКА         -->
+        </div>
+    </div>
+</tr>
+
+
+<script th:src="@{/js/rooms.js}"></script>
+
+</body>
+</html>
+
+
+<!--<img src="https://www.hilton.com/im/en/LEDHIHI/2533884/twin-guest-room-room-shot-2.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                                alt="Изображение 1">
+                           <img src="https://www.hilton.com/im/en/LEDHIHI/16470419/twin-courtyard-view.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                                alt="Изображение 2">
+                           <img src="https://www.hilton.com/im/en/LEDHIHI/3050001/king-guest-room-bathroom.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                                alt="Изображение 3">-->

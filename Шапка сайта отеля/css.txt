@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 60px;
+}
+
+.mainHeader {
+  display: flex;
+  border: 1px solid black;
+}
+
+.black_container {
+  color: WHITE;
+  margin-left: 30px;
+  height: 60px;
+  width: 100%;
+  background-color: black;
+  margin-right: 0px;
+  display: flex;
+  
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.headerClass {
+    margin-top: 150px;
+    margin-left: 15%;
+    border: 1px solid BLACK;
+}
+
+.headerTitle {
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+
+    font-size: 45px;
+    text-transform: uppercase;
+}
+
+.line {
+    margin-top: 35px;
+    height: 2px;
+    width: 600px;
+    background-color: black;
+}
+
+.introText{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+
+    font-size: 19px;
+    margin-top: 25px;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 25px;
+
+    padding-bottom: 60px;
+
+    border: 1px solid BLACK;
+}
+
+.RoomInfo {
+    color: white;
+    background-color: black;
+    margin-bottom: 60px;
+    display: flex;
+    margin-left: 15%;
+    margin-right: 15%;
+    border: 1px solid;
+}
+
+img {
+    height: 50%;
+    width: 30%;
+}
+
+.menu_label {
+  margin-right: 170px;
+  margin-left: 25px;
+  margin-top: 11px;
+  font-size: 25px;
+}
+
+.address_box {
+  margin-right: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.location_icon {
+   margin-top: 15px;
+   margin-right: 400px;
+   font-size: 25px;
+}
+
+.phone_icon {
+  margin-top: 15px;
+  margin-right: 10px;
+  font-size: 25px;
+}
+.phone {
+  margin-top: 20px;
+  margin-right: 230px;
+  font-size: 15px;
+}
+
+.chat_with_us {
+  font-size: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 8px;
+  margin-top: 12px; 
+  margin-bottom: 10px;
+  border: 1px solid WHITE;
+}
+
+
+.burger-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+.burger {
+  margin-top: 15px;
+  margin-left: 25px;
+  z-index: 1;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  border: none;
+  background: transparent;
+  width: 40px;
+  height: 26px;
+}
+.burger::before,
+.burger::after {
+  content: '';
+  left: 0;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 10px;
+  background: #000;
+}
+.burger::before {
+  top: 0;
+  box-shadow: 0 11px 0 #000;
+  transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+.burger::after {
+  bottom: 0;
+  transition: bottom .3s .15s, transform .3s;
+}
+.burger-checkbox:checked + .burger::before {
+  top: 11px;
+  transform: rotate(45deg);
+  box-shadow: 0 6px 0 rgba(0,0,0,0);
+  transition: box-shadow .15s, top .3s, transform .3s .15s;
+}
+.burger-checkbox:checked + .burger::after {
+  bottom: 11px;
+  transform: rotate(-45deg);
+  transition: bottom .3s, transform .3s .15s;
+}
+.menu-list {
+  top: 0px;
+  left: 0;
+  position: absolute;
+  display: grid;
+  gap: 15px;
+  padding: 45px 0;
+  margin: 0;
+  margin-left: 0px;
+  background: rgba(0, 0, 0, 0.86);
+  list-style-type: none;
+  transform: translateX(-100%);
+  transition: .3s;
+  width: 100%;
+  height: 100%;
+}
+.menu-item {
+  display: block;
+  padding: 8px;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+}
+.menu-item:hover {
+  background: rgba(255,255,255,.2)
+}
+.burger-checkbox:checked ~ .menu-list {
+  transform: translateX(0);
+}
+

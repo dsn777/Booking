@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование номеров в отеле</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+</head>
+
+<body>
+<div class="container">
+    <h1>Бронирование номеров в отеле</h1>
+    <form id="bookForm" method="GET">
+        <label for="checkin">Дата заезда:</label>
+        <input type="date" id="checkin" name="checkin" required>
+
+        <label for="checkout">Дата выезда:</label>
+        <input type="date" id="checkout" name="checkout" required>
+
+        <label for="guestsNumber">Количество гостей:</label>
+        <input type="number" id="guestsNumber" name="guestsNumber" required>
+
+        <button type="submit">Забронировать</button>
+    </form>
+
+    <script>
+        // Обработчик отправки формы
+        document.getElementById('bookForm').addEventListener('submit', function(event) {
+          // Отменяем стандартную отправку формы
+          event.preventDefault();
+
+          // Получаем данные из формы
+          let checkin = document.getElementById('checkin').value;
+          let checkout = document.getElementById('checkout').value;
+          let guestsnumber = document.getElementById('guestsNumber').value;
+
+          // Формируем URL с параметрами
+          let url = 'book/rooms?checkin=' + checkin + '&checkout=' + checkout + '&guestsNumber=' + guestsnumber;
+
+          // Перенаправляем на новую страницу
+          window.location.href = url;
+        });
+    </script>
+</div>
+</body>
+</html>

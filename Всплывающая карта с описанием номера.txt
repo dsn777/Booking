@@ -1,0 +1,190 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet">
+
+<button class="btn-description">Описание номера</button>
+
+<div class="description-popup">
+    <div class="description-content">
+        <span class="close">&times;</span>
+        <div class="left-container">
+            <div class="carousel">
+                <img src="https://www.hilton.com/im/en/LEDHIHI/2533884/twin-guest-room-room-shot-2.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                     alt="Изображение 1">
+                <img src="https://www.hilton.com/im/en/LEDHIHI/16470419/twin-courtyard-view.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                     alt="Изображение 2">
+                <img src="https://www.hilton.com/im/en/LEDHIHI/3050001/king-guest-room-bathroom.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
+                     alt="Изображение 3">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+
+            <div class="left-container-info">
+                <h2>Номер с двумя односпальными кроватями (TWIN)</h2>
+                <hr size="1" color="#BBBBBB"/>
+                <p>Бесплатный беспроводной Интернет, отдельные ванна и душ, минибар
+
+                    Отдохните во время пребывания в Санкт-Петербурге в стильном гостиничном номере с видом на внутренний
+                    двор и двумя односпальными кроватями (Twin). Оставайтесь на связи благодаря бесплатному
+                    беспроводному Интернету или отдохните в элегантной ванной комнате с отдельными ванной и душем.
+
+                    Другие удобства включают минибар, сейф, вмещающий ноутбук, и бесплатную минеральную воду. Размещение
+                    для 2.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+.btn-description {
+    text-align: left;
+    margin-left: 5px;
+    border: 0;
+    background: white;
+    font-size: 15px;
+    color: gray;
+    cursor: pointer;
+}
+
+.description-popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.description-content {
+    display: block;
+    background-color: white;
+    margin: 10% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.description-content img {
+  width: 630px;
+  height: 420px;
+  max-width: 680px;
+  max-height: 450px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    margin-right: 10px;
+    font-size: 41px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel img {
+    border-radius: 10px 0 0 0 ;
+    height: auto;
+    width: 100%;
+}
+
+.carousel button {
+    position: absolute;
+    height: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-weight: lighter;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    left: 96.8%;
+}
+
+.left-container {
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  border-radius: 15px 0px 0px 15px ;
+  margin: 0px;
+  display: block;
+  width: 50%;
+  height: 100%;
+  background-color: #f1f1f1;
+}
+
+.left-container p {
+  margin: 0px;
+}
+
+.left-container-info {
+  padding: 20px;
+}
+
+.left-container-info h2 {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.left-container-info p {
+  white-space: pre-line;
+  font-size: 16px;
+  font-weight: 100;
+}
+
+
+
+
+
+
+let currentImage = 0;
+const images = document.querySelectorAll('.carousel img');
+
+document.querySelector('.next').addEventListener('click', () => {
+    images[currentImage].style.display = 'none';
+    currentImage = (currentImage + 1) % images.length;
+    images[currentImage].style.display = 'block';
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+    images[currentImage].style.display = 'none';
+    currentImage = (currentImage - 1 + images.length) % images.length;
+    images[currentImage].style.display = 'block';
+});
+
+
+document.querySelector(".btn-description").addEventListener("click", function() {
+    document.querySelector(".description-popup").style.display = "block";
+});
+
+document.querySelector(".close").addEventListener("click", function() {
+    document.querySelector(".description-popup").style.display = "none";
+});
