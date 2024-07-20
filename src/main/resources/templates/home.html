@@ -8,39 +8,64 @@
 </head>
 
 <body>
+
 <div class="container">
     <h1>Бронирование номеров в отеле</h1>
     <form id="bookForm" method="GET">
         <label for="checkin">Дата заезда:</label>
-        <input type="date" id="checkin" name="checkin" required>
+        <input type="date" id="checkin" name="checkin" required
+               th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+               th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
 
         <label for="checkout">Дата выезда:</label>
-        <input type="date" id="checkout" name="checkout" required>
+        <input type="date" id="checkout" name="checkout" required
+               th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+               th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
 
-        <label for="guestsNumber">Количество гостей:</label>
-        <input type="number" id="guestsNumber" name="guestsNumber" required>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const yyyy = tomorrow.getFullYear();
+            const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+            const dd = String(tomorrow.getDate()).padStart(2, '0');
+            const formattedTomorrow = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("checkout").min = formattedTomorrow;
+            document.getElementById("checkout").value = formattedTomorrow;
+            /*]]>*/
+        </script>
 
-        <button type="submit">Забронировать</button>
+        <div class="dropdown">
+            <button type="button" class="guest-button" id="guest-button">Гости</button>
+            <div class="dropdown-content" id="guest-menu">
+                <div id="rooms">
+                    <div class="room" data-room="1">
+                        <h4>Номер 1</h4>
+                        <button type="button" class="remove-room">Удалить</button>
+                        <div class="counter">
+                            <label>Взрослые</label>
+                            <button type="button" class="minus">-</button>
+                            <span class="adults">1</span>
+                            <button type="button" class="plus">+</button>
+                        </div>
+                        <div class="counter">
+                            <label>Дети</label>
+                            <button type="button" class="minus">-</button>
+                            <span class="children">0</span>
+                            <button type="button" class="plus">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="button" id="add-room">+ ДОБАВИТЬ НОМЕР</button>
+                    <button type="button" id="done-button">ГОТОВО</button>
+                </div>
+            </div>
+        </div>
+        <button class="booking-button" type="submit">Забронировать</button>
+
     </form>
-
-    <script>
-        // Обработчик отправки формы
-        document.getElementById('bookForm').addEventListener('submit', function(event) {
-          // Отменяем стандартную отправку формы
-          event.preventDefault();
-
-          // Получаем данные из формы
-          let checkin = document.getElementById('checkin').value;
-          let checkout = document.getElementById('checkout').value;
-          let guestsnumber = document.getElementById('guestsNumber').value;
-
-          // Формируем URL с параметрами
-          let url = 'book/rooms?checkin=' + checkin + '&checkout=' + checkout + '&guestsNumber=' + guestsnumber;
-
-          // Перенаправляем на новую страницу
-          window.location.href = url;
-        });
-    </script>
+    <script th:src="@{/js/home.js}"></script>
 </div>
 </body>
 </html>
