@@ -9,6 +9,13 @@
 
 <body>
 
+<h1>Краткое описание бронирования:</h1>
+<div th:each="room : ${selected_rooms}">
+    <p th:text="${room.price} + '₽'"> ЦЕНА НОМЕРА</p>
+    <p th:text="${room.name}"></p>
+    <p th:text="${room.guests_number}"></p>
+</div>
+
 <div class="form-container">
     <div class="label-and-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true" focusable="false" class="size-8 lg:size-12">

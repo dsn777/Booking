@@ -21,7 +21,8 @@ public class Room {
     private Integer price;
     private String description;
     private String name;
+    //private Integer count;
 
     @OneToMany(mappedBy = "room_id", cascade = CascadeType.ALL)
-    private List<RoomImagePath> image_paths = new ArrayList<>();
+    private List<RoomImagePath> image_paths;
 }

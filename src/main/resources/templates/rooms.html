@@ -8,62 +8,137 @@
 
 </head>
 <body>
+<div class="main-container">
+    <div class="up-container">
+        <div class="without-hotel-card">
+            <h3>
+                Номер
+                <span th:text="${param.selectable_room}"> </span>
+                из
+                <span th:text="${selected_rooms.size()}"> </span>
+            </h3>
 
+            <h1>Выбрать номер</h1>
 
-<tr th:each="room : ${rooms}">
-    <div class="room-card">
-        <img class="main-img" th:src="@{${room.image_paths[0].path}}" alt="Номер в отеле">
-        <div class="room-info">
-            <h2 th:text="${room.name}"></h2>
-            <div class="main-description-button-container">
-                <button class="btn-description">
-                    Описание номера >
-                </button>
+            <div class="selected-nav">
+                <div class="room-select-link-button" th:each="room, stat : ${selected_rooms}">
+                    <form th:action="@{/book/test_rooms}" method="GET">
+                        <input type="hidden" name="selectable_room" th:value="${stat.index + 1}">
+                        <button type="submit" class="room-edit-button" th:text="'Номер ' + ${stat.index + 1}">
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <form method="GET" action="/book/create_form">
-                <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
-                </button>
-            </form>
 
-            <!--    НОВЫЙ ВСТАВЛЕННЫЙ БЛОК        -->
-            <div class="description-popup">
-                <div class="description-content">
-                    <span class="close">&times;</span>
-                    <div class="left-container">
-                        <div class="carousel">
+            <div th:each="selected_room : ${selected_rooms}">
+                <h2 th:text="${selected_room.name}"></h2>
+            </div>
 
-                            <div th:each="image : ${room.image_paths}">
-                                <img th:src="${image.path}" alt="Изображение номера"/>
+
+            <div class="hotel-amenities">
+                <h3> Ваше пребывание в Hilton Hotels & Resorts включает </h3>
+                ✓ Бесплатная парковка
+                ✓ Номера для некурящих
+                ✓ Трансфер из аэропорта
+                ✓ Рестораны отеля
+                <div>
+                    ✓ Фитнес-центр
+                    ✓ Номер для размещения с домашними животными
+                    ✓ Бизнес-центр
+                </div>
+            </div>
+        </div>
+
+        <div class="hotel-card">
+            <img src="https://www.hilton.com/im/en/LEDHIHI/3042168/ledhihi-facade1.jpg?impolicy=crop&cw=4494&ch=2369&gravity=NorthWest&xposition=0&yposition=315&rw=1100&rh=580"/>
+            <div class="info">
+                <h4>Hilton Saint Petersburg ExpoForum</h4>
+
+                <div class="address">
+                    Петербургское шоссе, д. 62, корпус 1, Санкт-Петербург, 196626, Российская Федерация
+                </div>
+                Информация об отеле >
+            </div>
+        </div>
+    </div>
+
+    <div class="number-and-taxes">
+        <div class="room-number">
+            Найдено номеров:
+            <span th:text="${finded_rooms.size()}"></span>. Отображается средняя цена за ночь
+        </div>
+        <div class="taxes">
+            Налоги включены в стоимость
+        </div>
+    </div>
+    <hr size="1" color="#BBBBBB" width=100%/>
+
+    <div class="cards-grid">
+        <div class="room-card" th:each="room : ${finded_rooms}">
+            <img class="main-img" th:src="@{${room.image_paths[0].path}}" alt="Номер в отеле">
+            <div class="room-info">
+                <h2 th:text="${room.name}"></h2>
+                <div class="main-description-button-container">
+                    <button class="btn-description">
+                        Описание номера >
+                    </button>
+                </div>
+
+                <!--<form th:action="${required_rooms_number == 1 ? '/book/create_form/' : '/book/select_room?id='} + ${room.id}"
+                      method="GET">
+                    <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
+                    </button>
+                </form>-->
+
+                <form th:action="${'/book/select_room/'} + ${room.id}"
+                      method="GET">
+                    <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
+                    </button>
+                </form>
+
+                <!-- <form method="GET" action="/book/create_form">
+                     <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
+                     </button>
+                 </form>-->
+
+                <div class="description-popup">
+                    <div class="description-content">
+                        <span class="close">&times;</span>
+                        <div class="left-container">
+                            <div class="carousel">
+
+                                <div th:each="image : ${room.image_paths}">
+                                    <img th:src="${image.path}" alt="Изображение номера"/>
+                                </div>
+
+                                <button class="prev">&#10094;</button>
+                                <button class="next">&#10095;</button>
                             </div>
 
-                            <button class="prev">&#10094;</button>
-                            <button class="next">&#10095;</button>
-                        </div>
+                            <div class="left-container-info">
+                                <h2 th:text="${room.name}"> НАЗВАНИЕ НОМЕРА</h2>
+                                <hr size="1" color="#BBBBBB"/>
+                                <p th:text="${room.description}">ОПИСАНИЕ НОМЕРА</p>
+                            </div>
 
-                        <div class="left-container-info">
-                            <h2 th:text="${room.name}"> НАЗВАНИЕ НОМЕРА</h2>
-                            <hr size="1" color="#BBBBBB"/>
-                            <p th:text="${room.description}">ОПИСАНИЕ НОМЕРА</p>
-                        </div>
+                            <div class="inner-button-container">
+                                <form th:action="${'/book/select_room/'} + ${room.id}">
+                                    <button class="booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'">
+                                        ЦЕНА НОМЕРА
+                                    </button>
+                                </form>
+                            </div>
 
-                        <div class="inner-button-container">
-                            <button class="booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'">
-                                ЦЕНА НОМЕРА
-                            </button>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <!--   КОНЕЦ НОВОГО ВСТАВЛЕННОГО БЛОКА         -->
         </div>
     </div>
-</tr>
 
-
-<script th:src="@{/js/rooms.js}"></script>
-
+    <script th:src="@{/js/rooms.js}"></script>
+</div>
 </body>
 </html>
 
