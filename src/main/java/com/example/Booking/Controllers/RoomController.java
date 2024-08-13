@@ -66,7 +66,7 @@ public class RoomController {
                                 HttpSession httpSession) {
 
         this.selectable_room = selectable_room;
-        List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
+        /*List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
         List<BookingRequest> bookingRequestList = (List<BookingRequest>) httpSession.getAttribute("bookingRequestList");
         BookingRequest bookingRequest = bookingRequestList.get(selectable_room - 1); //get(i++)?
 
@@ -77,26 +77,27 @@ public class RoomController {
                 bookingRequest.getAdults() + bookingRequest.getChildren()
         );
 
-        /* ----------   Здесь нужно вычесть выбранные данные... -------- */
-
+        */
+        /*
         //передача данных с учетом вычтенных
         model.addAttribute("selected_rooms", selectedRooms);
         model.addAttribute("finded_rooms", findedRooms);
+        */
+
+        roomService.roomsToSelect(
+                selectable_room,
+                model,
+                httpSession
+        );
+
         return "rooms";
     }
 
     @GetMapping("/select_room/{id}")
     public String selectRoom(@PathVariable Integer id,
                              HttpSession httpSession) {
-        //получить из сессии уже выбранные номера
-        List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
 
-        //найти в базе данных новый выбранный номер
-        Room roomToSelect = roomRepository.findById(id).orElse(null);
-
-        //добавить в сессию еще один выбранный номер
-        selectedRooms.set(selectable_room - 1, roomToSelect);
-
+        List<Room> selectedRooms = roomService.selectRoom(id, httpSession, selectable_room);
         return selectable_room != selectedRooms.size() ?
                 "redirect:/book/test_rooms?selectable_room=" + ++selectable_room :
                 "redirect:/book/reservation";

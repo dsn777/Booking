@@ -6,7 +6,10 @@ import com.example.Booking.Models.BookingRequest;
 import com.example.Booking.Repositories.RoomRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -34,5 +37,44 @@ public class RoomService {
 
         httpSession.setAttribute("bookingRequestList", bookingRequestList);
         httpSession.setAttribute("selected_rooms", selectedRooms);
+    }
+
+    public void roomsToSelect(Integer selectable_room,
+                                Model model,
+                                HttpSession httpSession) {
+
+        //this.selectable_room = selectable_room;
+        List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
+        List<BookingRequest> bookingRequestList = (List<BookingRequest>) httpSession.getAttribute("bookingRequestList");
+        BookingRequest bookingRequest = bookingRequestList.get(selectable_room - 1); //get(i++)?
+
+        //Запрос в БД с этими параметрами брони
+        List<Room> findedRooms = roomRepository.findAvailableRooms(
+                bookingRequest.getCheckin(),
+                bookingRequest.getCheckout(),
+                bookingRequest.getAdults() + bookingRequest.getChildren()
+        );
+
+        /* ----------   Здесь нужно вычесть выбранные данные... -------- */
+
+        //передача данных с учетом вычтенных
+        model.addAttribute("selected_rooms", selectedRooms);
+        model.addAttribute("finded_rooms", findedRooms);
+        //return "rooms";
+    }
+
+    public List<Room> selectRoom(Integer id,
+                           HttpSession httpSession,
+                           Integer selectable_room) {
+        //получить из сессии уже выбранные номера
+        List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
+
+        //найти в базе данных новый выбранный номер
+        Room roomToSelect = roomRepository.findById(id).orElse(null);
+
+        //добавить в сессию еще один выбранный номер
+        selectedRooms.set(selectable_room - 1, roomToSelect);
+
+        return selectedRooms;
     }
 }
