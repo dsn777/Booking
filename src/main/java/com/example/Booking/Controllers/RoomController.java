@@ -5,6 +5,7 @@ import com.example.Booking.DTO.RoomCountDTO;
 import com.example.Booking.Entity.Room;
 import com.example.Booking.Models.BookingRequest;
 import com.example.Booking.Repositories.RoomRepository;
+import com.example.Booking.Services.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,22 @@ import java.util.Map;
 public class RoomController {
 
     private final RoomRepository roomRepository;
+    private final RoomService roomService;
+
     private Integer selectable_room = 1;
 
     @Autowired
-    public RoomController(RoomRepository roomRepository) {
+    public RoomController(RoomRepository roomRepository,
+                          RoomService roomService) {
         this.roomRepository = roomRepository;
+        this.roomService = roomService;
     }
 
     @GetMapping("/rooms")
     public String formBookingRequestList(
             @RequestParam Map<String, String> params,
             HttpSession httpSession) {
-
-        List<BookingRequest> bookingRequestList = new BookingDataCreator().createByMap(params);
+       /* List<BookingRequest> bookingRequestList = new BookingDataCreator().createByMap(params);
         List<Room> selectedRooms = new ArrayList<>();
 
         for (int i = 0; i < bookingRequestList.size(); i++)
@@ -48,6 +52,9 @@ public class RoomController {
 
         httpSession.setAttribute("bookingRequestList", bookingRequestList);
         httpSession.setAttribute("selected_rooms", selectedRooms);
+*/
+
+        roomService.formBookingRequestList(params, httpSession);
 
         selectable_room = 1;
         return "redirect:/book/test_rooms?selectable_room=" + selectable_room;
