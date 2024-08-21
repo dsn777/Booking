@@ -21,22 +21,12 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/book")
-@SessionAttributes("rooms")
-
-
-//ВСЮ ЛОГИКУ В ROOM_SERVICE ВМЕСТЕ С БД ТУДА ЖЕ НАХУЙ
-
 public class RoomController {
-
-    private final RoomRepository roomRepository;
     private final RoomService roomService;
-
     private Integer selectable_room = 1;
 
     @Autowired
-    public RoomController(RoomRepository roomRepository,
-                          RoomService roomService) {
-        this.roomRepository = roomRepository;
+    public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
 
@@ -44,19 +34,9 @@ public class RoomController {
     public String formBookingRequestList(
             @RequestParam Map<String, String> params,
             HttpSession httpSession) {
-       /* List<BookingRequest> bookingRequestList = new BookingDataCreator().createByMap(params);
-        List<Room> selectedRooms = new ArrayList<>();
 
-        for (int i = 0; i < bookingRequestList.size(); i++)
-            selectedRooms.add(new Room());
-
-        httpSession.setAttribute("bookingRequestList", bookingRequestList);
-        httpSession.setAttribute("selected_rooms", selectedRooms);
-*/
-
+        this.selectable_room = 1;
         roomService.formBookingRequestList(params, httpSession);
-
-        selectable_room = 1;
         return "redirect:/book/test_rooms?selectable_room=" + selectable_room;
     }
 
@@ -66,24 +46,6 @@ public class RoomController {
                                 HttpSession httpSession) {
 
         this.selectable_room = selectable_room;
-        /*List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
-        List<BookingRequest> bookingRequestList = (List<BookingRequest>) httpSession.getAttribute("bookingRequestList");
-        BookingRequest bookingRequest = bookingRequestList.get(selectable_room - 1); //get(i++)?
-
-        //Запрос в БД с этими параметрами брони
-        List<Room> findedRooms = roomRepository.findAvailableRooms(
-                bookingRequest.getCheckin(),
-                bookingRequest.getCheckout(),
-                bookingRequest.getAdults() + bookingRequest.getChildren()
-        );
-
-        */
-        /*
-        //передача данных с учетом вычтенных
-        model.addAttribute("selected_rooms", selectedRooms);
-        model.addAttribute("finded_rooms", findedRooms);
-        */
-
         roomService.roomsToSelect(
                 selectable_room,
                 model,
@@ -93,11 +55,14 @@ public class RoomController {
         return "rooms";
     }
 
+
     @GetMapping("/select_room/{id}")
     public String selectRoom(@PathVariable Integer id,
                              HttpSession httpSession) {
 
-        List<Room> selectedRooms = roomService.selectRoom(id, httpSession, selectable_room);
+        List<Room> selectedRooms =
+                roomService.selectRoom(id, httpSession, selectable_room);
+
         return selectable_room != selectedRooms.size() ?
                 "redirect:/book/test_rooms?selectable_room=" + ++selectable_room :
                 "redirect:/book/reservation";
@@ -109,7 +74,7 @@ public class RoomController {
     public List<RoomCountDTO> getRoomCounts(@RequestParam Date checkin,
                                             @RequestParam Date checkout,
                                             @RequestParam int guestsnumber) {
-        return roomRepository.getRoomCounts(
+        return roomService.getRoomCounts(
                 checkin,
                 checkout,
                 guestsnumber

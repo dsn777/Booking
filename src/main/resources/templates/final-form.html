@@ -5,64 +5,270 @@
     <meta charset="UTF-8">
     <title>Регистрация на тесте</title>
     <link rel="stylesheet" href="/css/final-form.css"/>
+
 </head>
 
 <body>
 
-<h1>Краткое описание бронирования:</h1>
+<!--   <h1>Краткое описание бронирования:</h1>
 <div th:each="room : ${selected_rooms}">
-    <p th:text="${room.price} + '₽'"> ЦЕНА НОМЕРА</p>
-    <p th:text="${room.name}"></p>
-    <p th:text="${room.guests_number}"></p>
-</div>
+  <p th:text="${room.price} + '₽'"> ЦЕНА НОМЕРА</p>
+  <p th:text="${room.name}"></p>
+  <p th:text="${room.guests_number}"></p>
+</div> -->
 
-<div class="form-container">
-    <div class="label-and-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true" focusable="false" class="size-8 lg:size-12">
-            <path d="m0 0v24h24v-24z" fill="none"></path>
-            <path d="m6 19.5c.28 0 .5-.22.5-.5 0-3.03 2.47-5.5 5.5-5.5s5.5 2.47 5.5 5.5c0 .28.22.5.5.5s.5-.22.5-.5c0-2.81-1.79-5.2-4.29-6.1 1.36-.78 2.29-2.22 2.29-3.9 0-2.48-2.02-4.5-4.5-4.5s-4.5 2.02-4.5 4.5c0 1.67.93 3.12 2.29 3.9-2.5.91-4.29 3.3-4.29 6.1 0 .28.22.5.5.5zm2.5-10.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"></path>
-        </svg>
+<div class="page-container">
+    <div class="total-container">
+        <h1> Информация об оплате и госте </h1>
+        <div class="first-divider">
+            <div class="divider"></div>
+        </div>
 
-        <div class="form-title">Информация о госте</div>
+        <div class="internal-content">
+
+            <div class="row">
+                <div>
+                    <h2>Всего за пребывание</h2>
+                </div>
+                <div class="right">
+                    <h2>132,097.00₽</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                Показать информацию о цене
+            </div>
+
+            <div class="row">
+                Общая стоимость номера
+                <div class="right"> 132,097.00₽</div>
+            </div>
+
+            <div class="row">
+                Общая сумма налогов
+                <div class="right">
+                    Включено в стоимость
+                </div>
+            </div>
+        </div>
+
+        <div class="second-divider">
+            <div class="divider"></div>
+        </div>
     </div>
-    <div class="form-divider"></div>
+
+    <div class="content-container">
+        <div class="label-and-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true"
+                 focusable="false" class="size-8 lg:size-12">
+                <path d="m0 0v24h24v-24z" fill="none"></path>
+                <path d="m6 19.5c.28 0 .5-.22.5-.5 0-3.03 2.47-5.5 5.5-5.5s5.5 2.47 5.5 5.5c0 .28.22.5.5.5s.5-.22.5-.5c0-2.81-1.79-5.2-4.29-6.1 1.36-.78 2.29-2.22 2.29-3.9 0-2.48-2.02-4.5-4.5-4.5s-4.5 2.02-4.5 4.5c0 1.67.93 3.12 2.29 3.9-2.5.91-4.29 3.3-4.29 6.1 0 .28.22.5.5.5zm2.5-10.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"></path>
+            </svg>
+
+            <div class="form-title">Важная информация перед прибытием</div>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+            <div class="important-info">
+                Регистрация
+                <b>2:00 После Полудня</b>
+                Выезд
+                <b>12:00 После Полудня</b>
+                Валюта
+                <b>Российский Рубль</b>
+                Парковка
+                <b>Самостоятельная</b>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="label-and-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true"
+                 focusable="false" class="size-8 lg:size-12">
+                <path d="m0 0v24h24v-24z" fill="none"></path>
+                <path d="m6 19.5c.28 0 .5-.22.5-.5 0-3.03 2.47-5.5 5.5-5.5s5.5 2.47 5.5 5.5c0 .28.22.5.5.5s.5-.22.5-.5c0-2.81-1.79-5.2-4.29-6.1 1.36-.78 2.29-2.22 2.29-3.9 0-2.48-2.02-4.5-4.5-4.5s-4.5 2.02-4.5 4.5c0 1.67.93 3.12 2.29 3.9-2.5.91-4.29 3.3-4.29 6.1 0 .28.22.5.5.5zm2.5-10.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"></path>
+            </svg>
+
+            <div class="form-title">Гарантия и правила отмены бронирования</div>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+            <div class="guarantee">
+                <div>Бронируйте сейчас, платите потом</div>
+                Для осуществления данного бронирования требуется кредитная карта. <b>Бесплатная отмена до 11:59 после
+                полудня, 20 сент. 2024 г. по местному времени отеля.</b>
+            </div>
+        </div>
+    </div>
+
+    Необходимо заполнить все поля кроме тех, которые отмечены как необязательные для заполнения.
+
     <form action="/submit_form" method="post">
-        <div class="form-group">
-            <label for="name">Имя</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="surname">Фамилия</label>
-            <input type="text" id="surname" name="surname" required>
-        </div>
-        <div class="form-group">
-            <label for="patronymic">Отчество</label>
-            <input type="text" id="patronymic" name="patronymic">
-        </div>
-        <div class="form-group">
-            <label for="email">Электронная почта</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">Телефон</label>
-            <input type="tel" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-            <label for="country">Страна/регион</label>
-            <input type="text" id="country" name="country" required>
-        </div>
-        <div class="form-group">
-            <label for="work-function">Рабочая функция</label>
-            <select id="work-function" name="work_function">
-                <option value="option1">Опция 1</option>
-                <option value="option2">Опция 2</option>
-                <!-- Добавьте дополнительные опции здесь -->
-            </select>
+        <div class="content-container">
+            <div class="label-and-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="49" width="49" aria-hidden="true"
+                     focusable="false" data-testid="paymentFormCreditCardIcon" class="size-8 lg:size-12">
+                    <path d="m0 0v24h24v-24z" fill="none"></path>
+                    <path d="m5 17.5h14c.83 0 1.5-.67 1.5-1.5v-8c0-.83-.67-1.5-1.5-1.5h-14c-.83 0-1.5.67-1.5 1.5v8c0 .83.67 1.5 1.5 1.5zm14-1h-14c-.28 0-.5-.22-.5-.5v-4.5h15v4.5c0 .28-.22.5-.5.5zm-14-9h14c.28 0 .5.22.5.5v1.5h-15v-1.5c0-.28.22-.5.5-.5z"></path>
+                    <path d="m10.5 14h-4c-.28 0-.5.22-.5.5s.22.5.5.5h4c.28 0 .5-.22.5-.5s-.22-.5-.5-.5z"></path>
+                </svg>
+
+                <div class="form-title">Оплата</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="content">
+                <div class="form-group">
+                    <label for="card-number">Номер карты</label>
+                    <input type="text" id="card-number" name="card-number" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="month-and-year">
+                        <div class="month">
+                            <label for="month">Месяц</label>
+                            <select id="month" name="month">
+                                <option value="month1">Январь</option>
+                                <option value="month2">Февраль</option>
+                                <option value="month3">Март</option>
+                                <option value="month4">Апрель</option>
+                                <option value="month5">Май</option>
+                                <option value="month6">Июнь</option>
+                                <option value="month7">Июль</option>
+                                <option value="month8">Август</option>
+                                <option value="month9">Сентябрь</option>
+                                <option value="month10">Октябрь</option>
+                                <option value="month11">Ноябрь</option>
+                                <option value="month12">Декабрь</option>
+
+                                <!-- Добавьте дополнительные опции здесь -->
+                            </select>
+                        </div>
+
+                        <div class="year">
+                            <label for="year">Год</label>
+                            <select class="year" id="year" name="year">
+                                <option value="year1">2024</option>
+                                <option value="year2">2025</option>
+                                <option value="year3">2026</option>
+                                <option value="year4">2027</option>
+                                <option value="year5">2028</option>
+                                <option value="year6">2029</option>
+                                <option value="year7">2030</option>
+                                <option value="year8">2031</option>
+                                <option value="year9">2032</option>
+                                <option value="year10">2033</option>
+                                <!-- Добавьте дополнительные опции здесь -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <button type="submit" class="submit-btn">Готово</button>
+        <div class="content-container">
+            <div class="label-and-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="48" width="48" aria-hidden="true"
+                     focusable="false" class="size-8 lg:size-12">
+                    <path d="m0 0v24h24v-24z" fill="none"></path>
+                    <path d="m6 19.5c.28 0 .5-.22.5-.5 0-3.03 2.47-5.5 5.5-5.5s5.5 2.47 5.5 5.5c0 .28.22.5.5.5s.5-.22.5-.5c0-2.81-1.79-5.2-4.29-6.1 1.36-.78 2.29-2.22 2.29-3.9 0-2.48-2.02-4.5-4.5-4.5s-4.5 2.02-4.5 4.5c0 1.67.93 3.12 2.29 3.9-2.5.91-4.29 3.3-4.29 6.1 0 .28.22.5.5.5zm2.5-10.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"></path>
+                </svg>
+
+                <div class="form-title">Информация о госте</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="content">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" id="surname" name="surname" required>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" id="patronymic" name="patronymic">
+                </div>
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Страна/регион</label>
+                    <select class="country" id="country">
+                        <option value="option1">Россия</option>
+                        <option value="option2">Беларусь</option>
+                        <!-- Добавьте дополнительные опции здесь -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="additional-services-container">
+            <div class="upper-divider">
+                <div class="divider"></div>
+            </div>
+
+            <button type="button" class="toggle-button" onclick="toggleInfo()">Посмотреть дополнительные услуги
+                <svg id="triangle" height=12px width=12px fill="currentColor" viewBox="0 0 11 8"
+                     data-testid="optionalServicesExpandIcon">
+                    <path d="M5.5 8L0 0h11z"></path>
+                </svg>
+            </button>
+
+            <div class="additional-services" id="additional-services">
+                <div class="hidden-content">
+
+                    <div class="parking-info">
+                        <h4>Автостоянка самообслуживания</h4>
+                        бесплатно
+                    </div>
+
+                    <div class="pet-info">
+                        <h4>Домашние животные</h4>
+                        Разрешено размещение с домашними животными, сбор в размере 3 500,00 ₽ без возможности возврата
+                        денег при отмене, макс. вес 22 кг. Отель предлагает особые услуги для домашних животных. Вы
+                        можете взять с собой до 2 домашних животных на номер. Плата за обслуживание в размере 3500 руб.
+                        за одно домашнее животное за весь период пребывания.
+                    </div>
+                </div>
+            </div>
+            <div class="down-divider">
+                <div class="divider"></div>
+            </div>
+            <script th:src="@{/js/final-form.js}"></script>
+        </div>
+
+        <div class="rules-and-agreement-container">
+            <b>Нажимая «Оформить бронирование», я принимаю Правила и ограничения,</br> Соглашение об использовании
+                веб-сайта, и соглашаюсь на сбор, использование, предоставление и передачу моих данных компанией Hilton в
+                соответствии с Глобальным положением о конфиденциальности Hilton. </br></br>
+
+                Для пользователей из Калифорнии: узнайте о сборе и использовании компанией Hilton ваших персональных
+                данных.</b></br></br>
+            Я также принимаю Условия и положения программы Hilton Honors.</br></br>
+            Я понимаю, что в случае моего вышепредоставленного согласия на включение меня в список контактов Hilton или
+            в случае моего разрешения на принятие автоматических решений я могу в любое время отозвать свое согласие,
+            следуя инструкциям Hilton, приводимым в каждом рекламном сообщении, или изменив настройки моей учетной
+            записи Hilton Honors. В случае моего согласия на включение меня в список контактов HGV я могу в любое время
+            отозвать свое согласие, следуя инструкциям HGV, приводимым в каждом рекламном сообщении.
+        </div>
+
+        <button type="submit" class="submit-btn">Оформить бронирование</button>
     </form>
 </div>
+
+<div class="divider"></div>
 
 </body>
 
