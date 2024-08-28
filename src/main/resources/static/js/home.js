@@ -1,30 +1,30 @@
-const imageContainer = document.querySelector('.image-container');
-const controls = document.querySelectorAll('.control');
+const imageContainer = document.querySelector(".image-container");
+const controls = document.querySelectorAll(".control");
 const images = [
-  'https://hiltonexpoforum.ru/img/a9988148c09f972c.jpg',
-  'https://hiltonexpoforum.ru/img/2d7c54029d406f60.jpg',
-  'https://hiltonexpoforum.ru/img/d3d323a72deadb9c.jpg',
-  'https://hiltonexpoforum.ru/img/0c4f749c16c0295e.jpg',
-  'https://hiltonexpoforum.ru/img/2535d29bb6d09715.jpg',
+  "https://hiltonexpoforum.ru/img/a9988148c09f972c.jpg",
+  "https://hiltonexpoforum.ru/img/2d7c54029d406f60.jpg",
+  "https://hiltonexpoforum.ru/img/d3d323a72deadb9c.jpg",
+  "https://hiltonexpoforum.ru/img/0c4f749c16c0295e.jpg",
+  "https://hiltonexpoforum.ru/img/2535d29bb6d09715.jpg"
 ];
 
 let currentImageIndex = 0;
 
 function changeImage(index) {
   currentImageIndex = index;
-  imageContainer.querySelector('img').src = images[index];
+  imageContainer.querySelector("img").src = images[index];
   updateControls();
 }
 
 function updateControls() {
-  controls.forEach(control => {
-    control.classList.remove('active');
+  controls.forEach((control) => {
+    control.classList.remove("active");
   });
-  controls[currentImageIndex].classList.add('active');
+  controls[currentImageIndex].classList.add("active");
 }
 
-controls.forEach(control => {
-  control.addEventListener('click', () => {
+controls.forEach((control) => {
+  control.addEventListener("click", () => {
     changeImage(parseInt(control.dataset.index));
   });
 });
@@ -32,7 +32,6 @@ controls.forEach(control => {
 updateControls();
 
 /*-------*/
-
 
 document
   .getElementById("bookForm")
@@ -97,20 +96,31 @@ document.getElementById("add-room").addEventListener("click", () => {
   newRoom.className = "room";
   newRoom.setAttribute("data-room", roomCount);
   newRoom.innerHTML = `
-                <h4>Номер ${roomCount}</h4>
-                <button type="button" class="remove-room">Удалить</button>
-                <div class="counter">
+                <h4>НОМЕР ${roomCount}</h4>
+                <button type="button" class="remove-room">
+                  <span class="material-symbols-outlined">delete
+                  </span>
+                </button>
+                <div class="guests">
+                  <div class="guest-container">
                     <label>Взрослые</label>
-                    <button type="button" class="minus">-</button>
-                    <span class="adults">1</span>
-                    <button type="button" class="plus">+</button>
+                    <div class="counter">
+                        <button type="button" class="minus">-</button>
+                        <span class="adults">1</span>
+                        <button type="button" class="plus">+</button>
+                    </div>
+                  </div>
+
+                  <div class="guest-container">
+                    <label>Дети</label>
+                    <div class="counter">
+                         <button type="button" class="minus">-</button>
+                         <span class="children">0</span>
+                         <button type="button" class="plus">+</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="counter">
-                     <label>Дети</label>
-                     <button type="button" class="minus">-</button>
-                     <span class="children">0</span>
-                     <button type="button" class="plus">+</button>
-                </div>
+                <hr/>
             `;
   rooms.appendChild(newRoom);
 

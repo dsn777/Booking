@@ -1,5 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
+/*   font-family: Arial, sans-serif; */
   background-color: #f2f2f2;
   color: #333;
   margin: 0;
@@ -52,9 +53,10 @@ body {
   backdrop-filter: blur(5px);
   background-color: rgba(9, 9, 9, 0.5);
   top: 100px;
-  left: calc(50% - 270px);
+  left: calc(50% - 210px);
   position: absolute;
-  max-width: 600px;
+  width: 400px;
+
   margin: 0 auto;
   padding: 20px;
   color: rgb(200, 200, 200);
@@ -104,56 +106,127 @@ select {
 
 .dropdown {
   position: relative;
-  display: inline-block;
+/*   display: inline-block; */
   width: 100%;
 }
 
 .dropdown-content {
+
+  padding: 20px;
+  width: 260px;
   display: none;
   background-color: #f9f9f9;
-  min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
+
   z-index: 1;
   margin-bottom: 10px;
 }
 
+.dropdown-content h3 {
+  margin: 0;
+  color: #666666;
+}
+
 .room {
+  color: black;
   margin-bottom: 10px;
   position: relative;
 }
 
+.guests {
+  display: flex;
+}
+
+.guest-container {
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.guest-container label {
+  font-size: 13px;
+  color: #646464;
+}
+
 .room h4 {
   margin: 0;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 13px;
 }
 
 .counter {
-  display: flex;
+  border: 1px solid #b5b5b5;
   align-items: center;
+
+  border-radius: 3px;
+  display: flex;
+
 }
 
 .counter button {
-  width: 30px;
-  height: 30px;
+  align-items: center;
+  background-color: #eeeeee;
+  color: #666666;
+  font-weight: 100;
+  border-radius: 3px;
+  font-size: 26px;
+  border: none;
+  width: 24px;
+  height: 24px;
+  margin: 6px;
 }
 
 .counter span {
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
 
 .remove-room {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: red;
-  color: white;
+  background: none;
+  color: #666666;
   border: none;
   cursor: pointer;
 }
 
+.buttons {
+  display: flex;
+}
+
+.add-room-btn {
+  background-color: #f1f1f1;
+  border: none;
+  color: #666666;
+  font-size: 15px;
+  width: 135px;
+  margin-right: 24px;
+}
+
+.done-btn {
+  color: white;
+  background-color: #666666;
+  font-weight: 700;
+  font-size: 15px;
+  width: 102px;
+  height: 39px;
+  border-radius: 3px;
+  border: none;
+}
+
+hr {
+  margin: 20px 0px;
+  height: 1px;
+  border: none;
+  background-color: #d1d1d1;
+}
+
+
+.delete-icon {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
