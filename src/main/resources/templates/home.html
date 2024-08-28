@@ -1,71 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бронирование номеров в отеле</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
 </head>
 
 <body>
 
-<div class="container">
-    <h1>Бронирование номеров в отеле</h1>
-    <form id="bookForm" method="GET">
-        <label for="checkin">Дата заезда:</label>
-        <input type="date" id="checkin" name="checkin" required
-               th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
-               th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
+<div class="big-container">
+    <div class="image-container">
+        <img src="https://hiltonexpoforum.ru/img/a9988148c09f972c.jpg" width=100% height=100%>
+    </div>
 
-        <label for="checkout">Дата выезда:</label>
-        <input type="date" id="checkout" name="checkout" required
-               th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
-               th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
+    <div class="controls">
+        <div class="control active" data-index="0"></div>
+        <div class="control" data-index="1"></div>
+        <div class="control" data-index="2"></div>
+        <div class="control" data-index="3"></div>
+    </div>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const yyyy = tomorrow.getFullYear();
-            const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-            const dd = String(tomorrow.getDate()).padStart(2, '0');
-            const formattedTomorrow = yyyy + '-' + mm + '-' + dd;
-            document.getElementById("checkout").min = formattedTomorrow;
-            document.getElementById("checkout").value = formattedTomorrow;
-            /*]]>*/
-        </script>
+    <div class="container">
+        <h1>Бронирование номеров в отеле</h1>
+        <form id="bookForm" method="GET">
+            <label for="checkin">Дата заезда:</label>
+            <input type="date" id="checkin" name="checkin" required th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+                   th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
 
-        <div class="dropdown">
-            <button type="button" class="guest-button" id="guest-button">Гости</button>
-            <div class="dropdown-content" id="guest-menu">
-                <div id="rooms">
-                    <div class="room" data-room="1">
-                        <h4>Номер 1</h4>
-                        <button type="button" class="remove-room">Удалить</button>
-                        <div class="counter">
-                            <label>Взрослые</label>
-                            <button type="button" class="minus">-</button>
-                            <span class="adults">1</span>
-                            <button type="button" class="plus">+</button>
-                        </div>
-                        <div class="counter">
-                            <label>Дети</label>
-                            <button type="button" class="minus">-</button>
-                            <span class="children">0</span>
-                            <button type="button" class="plus">+</button>
+            <label for="checkout">Дата выезда:</label>
+            <input type="date" id="checkout" name="checkout" required
+                   th:min="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+                   th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const yyyy = tomorrow.getFullYear();
+                const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+                const dd = String(tomorrow.getDate()).padStart(2, '0');
+                const formattedTomorrow = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("checkout").min = formattedTomorrow;
+                document.getElementById("checkout").value = formattedTomorrow;
+                /*]]>*/
+            </script>
+
+            <div class="dropdown">
+                <button type="button" class="guest-button" id="guest-button">Гости</button>
+                <div class="dropdown-content" id="guest-menu">
+                    <div id="rooms">
+                        <div class="room" data-room="1">
+                            <h4>Номер 1</h4>
+                            <button type="button" class="remove-room">Удалить</button>
+                            <div class="counter">
+                                <label>Взрослые</label>
+                                <button type="button" class="minus">-</button>
+                                <span class="adults">1</span>
+                                <button type="button" class="plus">+</button>
+                            </div>
+                            <div class="counter">
+                                <label>Дети</label>
+                                <button type="button" class="minus">-</button>
+                                <span class="children">0</span>
+                                <button type="button" class="plus">+</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="buttons">
-                    <button type="button" id="add-room">+ ДОБАВИТЬ НОМЕР</button>
-                    <button type="button" id="done-button">ГОТОВО</button>
+                    <div class="buttons">
+                        <button type="button" id="add-room">+ ДОБАВИТЬ НОМЕР</button>
+                        <button type="button" id="done-button">ГОТОВО</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <button class="booking-button" type="submit">Забронировать</button>
+            <button class="booking-button" type="submit">Забронировать</button>
 
-    </form>
-    <script th:src="@{/js/home.js}"></script>
+        </form>
+        <script th:src="@{/js/home.js}"></script>
+    </div>
+
 </div>
 </body>
 </html>

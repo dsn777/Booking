@@ -67,10 +67,13 @@ public class RoomService {
     public List<Room> selectRoom(Integer id,
                                  HttpSession httpSession,
                                  Integer selectable_room) {
+
         //получить из сессии уже выбранные номера
         List<Room> selectedRooms = (List<Room>) httpSession.getAttribute("selected_rooms");
+
         //найти в базе данных новый выбранный номер
         Room roomToSelect = roomRepository.findById(id).orElse(null);
+
         //добавить в сессию еще один выбранный номер
         selectedRooms.set(selectable_room - 1, roomToSelect);
         return selectedRooms;

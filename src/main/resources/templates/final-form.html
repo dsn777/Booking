@@ -31,7 +31,7 @@
                     <h2>Всего за пребывание</h2>
                 </div>
                 <div class="right">
-                    <h2>132,097.00₽</h2>
+                    <h2 th:text="${total_price} + '₽'"> ЦЕНА НОМЕРА</h2>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
 
             <div class="row">
                 Общая стоимость номера
-                <div class="right"> 132,097.00₽</div>
+                <div class="right" th:text="${total_price} + '₽'"> 132,097.00₽</div>
             </div>
 
             <div class="row">
@@ -104,7 +104,7 @@
 
     Необходимо заполнить все поля кроме тех, которые отмечены как необязательные для заполнения.
 
-    <form action="/submit_form" method="post">
+    <form method="post">
         <div class="content-container">
             <div class="label-and-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="49" width="49" aria-hidden="true"

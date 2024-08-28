@@ -63,6 +63,8 @@ public class RoomController {
         List<Room> selectedRooms =
                 roomService.selectRoom(id, httpSession, selectable_room);
 
+        System.out.println(selectedRooms);
+
         return selectable_room != selectedRooms.size() ?
                 "redirect:/book/test_rooms?selectable_room=" + ++selectable_room :
                 "redirect:/book/reservation";

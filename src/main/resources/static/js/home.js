@@ -1,3 +1,39 @@
+const imageContainer = document.querySelector('.image-container');
+const controls = document.querySelectorAll('.control');
+const images = [
+  'https://hiltonexpoforum.ru/img/a9988148c09f972c.jpg',
+  'https://hiltonexpoforum.ru/img/2d7c54029d406f60.jpg',
+  'https://hiltonexpoforum.ru/img/d3d323a72deadb9c.jpg',
+  'https://hiltonexpoforum.ru/img/0c4f749c16c0295e.jpg',
+  'https://hiltonexpoforum.ru/img/2535d29bb6d09715.jpg',
+];
+
+let currentImageIndex = 0;
+
+function changeImage(index) {
+  currentImageIndex = index;
+  imageContainer.querySelector('img').src = images[index];
+  updateControls();
+}
+
+function updateControls() {
+  controls.forEach(control => {
+    control.classList.remove('active');
+  });
+  controls[currentImageIndex].classList.add('active');
+}
+
+controls.forEach(control => {
+  control.addEventListener('click', () => {
+    changeImage(parseInt(control.dataset.index));
+  });
+});
+
+updateControls();
+
+/*-------*/
+
+
 document
   .getElementById("bookForm")
   .addEventListener("submit", function (event) {
@@ -9,28 +45,24 @@ document
 
     let room_params = "";
     let i = 0;
-    const adults = document.querySelectorAll('#rooms .adults');
-    adults.forEach(span => {
-        room_params = room_params + "&adults" + i++ + "=" + span.textContent;
-        console.log(span.textContent);
+    const adults = document.querySelectorAll("#rooms .adults");
+    adults.forEach((span) => {
+      room_params = room_params + "&adults" + i++ + "=" + span.textContent;
+      console.log(span.textContent);
     });
 
     i = 0;
-    const children = document.querySelectorAll('#rooms .children');
-    children.forEach(span => {
-        room_params = room_params + "&children" + i++ + "=" + span.textContent;
-        console.log(span.textContent);
+    const children = document.querySelectorAll("#rooms .children");
+    children.forEach((span) => {
+      room_params = room_params + "&children" + i++ + "=" + span.textContent;
+      console.log(span.textContent);
     });
 
     // Формируем URL с параметрами
     let url =
-      "book/rooms?checkin=" +
-      checkin +
-      "&checkout=" +
-      checkout +
-      room_params;
+      "book/rooms?checkin=" + checkin + "&checkout=" + checkout + room_params;
     // Перенаправляем на новую страницу
-      window.location.href = url;
+    window.location.href = url;
   });
 
 document.getElementById("guest-button").addEventListener("click", () => {
