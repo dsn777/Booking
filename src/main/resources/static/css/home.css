@@ -83,11 +83,22 @@ label {
 .guest-button,
 input,
 select {
-  width: 100%;
+  font-size: 16px;
+  width: 95.5%;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+.guest-button {
+  width: 100%;
+  font-weight: 600;
+  background-color: #dddddd;
+  border: none;
+  transition: all 0.2s;
+  margin: 10px 0px;
 }
 
 .booking-button {
@@ -96,8 +107,15 @@ select {
   background-color: #333;
   color: #fff;
   border: none;
+  font-size: 17px;
+  font-weight: 600;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guest-button:hover {
+  background-color: white;
 }
 
 .booking-button:hover {
@@ -220,13 +238,4 @@ hr {
   height: 1px;
   border: none;
   background-color: #d1d1d1;
-}
-
-
-.delete-icon {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
 }

@@ -104,7 +104,7 @@
 
     Необходимо заполнить все поля кроме тех, которые отмечены как необязательные для заполнения.
 
-    <form method="post">
+    <form method="post" action="reservation">
         <div class="content-container">
             <div class="label-and-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="49" width="49" aria-hidden="true"
@@ -122,14 +122,14 @@
             <div class="content">
                 <div class="form-group">
                     <label for="card-number">Номер карты</label>
-                    <input type="text" id="card-number" name="card-number" required>
+                    <input type="text" id="card-number" name="ccNumber">
                 </div>
 
                 <div class="form-group">
                     <div class="month-and-year">
                         <div class="month">
                             <label for="month">Месяц</label>
-                            <select id="month" name="month">
+                            <select id="month" name="ccMonth">
                                 <option value="month1">Январь</option>
                                 <option value="month2">Февраль</option>
                                 <option value="month3">Март</option>
@@ -149,7 +149,7 @@
 
                         <div class="year">
                             <label for="year">Год</label>
-                            <select class="year" id="year" name="year">
+                            <select class="year" id="year" name="ccYear">
                                 <option value="year1">2024</option>
                                 <option value="year2">2025</option>
                                 <option value="year3">2026</option>
@@ -183,31 +183,31 @@
 
             <div class="content">
                 <div class="form-group">
-                    <label for="name">Имя</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="firstname">Имя</label>
+                    <input type="text" id="firstName" name="firstname">
                 </div>
                 <div class="form-group">
-                    <label for="surname">Фамилия</label>
-                    <input type="text" id="surname" name="surname" required>
+                    <label for="lastname">Фамилия</label>
+                    <input type="text" id="lastname" name="lastname">
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                     <label for="patronymic">Отчество</label>
                     <input type="text" id="patronymic" name="patronymic">
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="email">Электронная почта</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email">
                 </div>
                 <div class="form-group">
                     <label for="phone">Телефон</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="tel" id="phone" name="phone" >
                 </div>
 
                 <div class="form-group">
                     <label for="country">Страна/регион</label>
-                    <select class="country" id="country">
-                        <option value="option1">Россия</option>
-                        <option value="option2">Беларусь</option>
+                    <select class="country" id="country" name="country">
+                        <option value="Россия">Россия</option>
+                        <option value="Беларусь">Беларусь</option>
                         <!-- Добавьте дополнительные опции здесь -->
                     </select>
                 </div>

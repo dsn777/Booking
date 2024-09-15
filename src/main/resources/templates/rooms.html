@@ -13,7 +13,7 @@
         <div class="without-hotel-card">
             <h3>
                 Номер
-                <span th:text="${param.selectable_room}"> </span>
+                <span th:text="${selectable_room}"> </span>
                 из
                 <span th:text="${selected_rooms.size()}"> </span>
             </h3>
@@ -22,8 +22,9 @@
 
             <div class="selected-nav">
                 <div class="room-select-link-button" th:each="room, stat : ${selected_rooms}">
-                    <form th:action="@{/book/test_rooms}" method="GET">
-                        <input type="hidden" name="selectable_room" th:value="${stat.index + 1}">
+                    <form th:action="@{/book/rooms/{index}(index=${stat.index + 1})}" method="GET">
+<!--                    <form th:action="@{/book/rooms/{stat.index + 1}}" method="GET">-->
+                       <input type="hidden" name="" th:value="${stat.index + 1}">
                         <button type="submit" class="room-edit-button" th:text="'Номер ' + ${stat.index + 1}">
                         </button>
                     </form>

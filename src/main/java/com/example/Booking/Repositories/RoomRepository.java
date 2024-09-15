@@ -5,18 +5,21 @@ import com.example.Booking.DTO.RoomCountDTO;
 import com.example.Booking.Entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 import java.sql.Date;
 import java.util.List;
 
 
-public interface RoomRepository extends JpaRepository<Room, Integer> {
+public interface RoomRepository extends CrudRepository<Room, Integer> {
+    //будто можно упростить
+    //ЗАПРОС НЕКОРРЕКТЕН!!!!!!!!!!!!!!!!!
     @Query(value =
-            "SELECT distinct Id, Guests_Number, Price, Name, description, Count FROM Room " +
+            "SELECT distinct Id, Guests_Number, Price, Name, description FROM Room " +
                     "INNER JOIN " +
                     "(" +
-                        "SELECT Room_id, COUNT(room_id) as Count " +
-                        "FROM RoomAccess " +
+                        "SELECT Room_id " +
+                        "FROM BookingInfo " +
                         "Group by Room_id, Check_in, Check_out " +
                         "having not " +
                         "(" +
@@ -48,7 +51,23 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     )
     List<RoomCountDTO> getRoomCounts(Date checkin, Date checkout, Integer guestsnumber);
 
-
+    @Query (
+            value = "SELECT DISTINCT room_number " +
+                    "FROM BookingInfo " +
+                    "WHERE room_id = :room_id " +
+                    "AND room_number NOT IN " +
+                    "( " +
+                        "SELECT room_number FROM bookinginfo " +
+                        "WHERE " +
+                        "(" +
+                            "check_in >= :checkin AND check_in < :checkout OR " +
+                            "check_out > :checkin AND check_out <= :checkout OR " +
+                            "check_in <= :checkin AND check_out >= :checkout " +
+                        ")" +
+                    ")",
+            nativeQuery = true
+    )
+    List<String> getAvailableRoomNumbers(Date checkin, Date checkout, Integer room_id);
     //List<Room> availableRooms(Date checkin, Date checkout);
     //List<Room> findRoomsWithParams(Date checkin, Date checkout, Integer guestsnumber)
 }

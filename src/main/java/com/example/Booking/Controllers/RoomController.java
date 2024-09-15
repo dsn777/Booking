@@ -1,11 +1,9 @@
 package com.example.Booking.Controllers;
 
-import com.example.Booking.BookingDataCreator;
 import com.example.Booking.DTO.RoomCountDTO;
 import com.example.Booking.Entity.Room;
-import com.example.Booking.Models.BookingRequest;
-import com.example.Booking.Repositories.RoomRepository;
 import com.example.Booking.Services.RoomService;
+import com.example.Booking.Services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,34 +19,33 @@ import java.util.Map;
 @Controller
 @RequestMapping("/book")
 public class RoomController {
+
+    private final SessionService sessionService;
     private final RoomService roomService;
     private Integer selectable_room = 1;
 
     @Autowired
-    public RoomController(RoomService roomService) {
+    public RoomController(SessionService sessionService,
+                          RoomService roomService) {
+        this.sessionService = sessionService;
         this.roomService = roomService;
     }
 
     @GetMapping("/rooms")
-    public String formBookingRequestList(
-            @RequestParam Map<String, String> params,
-            HttpSession httpSession) {
-
+    public String mapToSessionBookingRequestList(@RequestParam Map<String, String> params) {
         this.selectable_room = 1;
-        roomService.formBookingRequestList(params, httpSession);
-        return "redirect:/book/test_rooms?selectable_room=" + selectable_room;
+        roomService.mapToSessionBookingRequestList(params);
+        return "redirect:/book/rooms/" + selectable_room;
     }
 
-    @GetMapping("/test_rooms")
-    public String roomsToSelect(@RequestParam Integer selectable_room,
-                                Model model,
-                                HttpSession httpSession) {
+    @GetMapping("/rooms/{selectable_room}")
+    public String roomsToSelect(@PathVariable int selectable_room,
+                                Model model) {
 
         this.selectable_room = selectable_room;
         roomService.roomsToSelect(
                 selectable_room,
-                model,
-                httpSession
+                model
         );
 
         return "rooms";
@@ -57,16 +53,15 @@ public class RoomController {
 
 
     @GetMapping("/select_room/{id}")
-    public String selectRoom(@PathVariable Integer id,
+    public String selectRoom(@PathVariable("id") Room room,
                              HttpSession httpSession) {
-
-        List<Room> selectedRooms =
-                roomService.selectRoom(id, httpSession, selectable_room);
-
-        System.out.println(selectedRooms);
+        //Room roomToSelect = roomService.getRoomToSelect(id); //достаем из БД номер для выбора
+        List<Room> selectedRooms = sessionService.getSafeAttributes("selected_rooms", Room.class); //достаем из сессии и пихаем новый Room
+        selectedRooms.set(selectable_room - 1, room);
+        sessionService.setAttribute("selected_rooms", selectedRooms);
 
         return selectable_room != selectedRooms.size() ?
-                "redirect:/book/test_rooms?selectable_room=" + ++selectable_room :
+                "redirect:/book/rooms/" + ++selectable_room :
                 "redirect:/book/reservation";
     }
 
@@ -81,6 +76,14 @@ public class RoomController {
                 checkout,
                 guestsnumber
         );
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public List<String> testMethod(@RequestParam Date checkin,
+                                   @RequestParam Date checkout,
+                                   @RequestParam Integer room_id) {
+        return roomService.getAvailableRoomNumbers(checkin, checkout, room_id);
     }
 }
 
