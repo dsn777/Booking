@@ -70,7 +70,6 @@ public class RoomController {
                 "redirect:/book/rooms/" + ++selectable_room :
                 "redirect:/book/reservation";
     }
-
 }
 
 

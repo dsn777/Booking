@@ -67,25 +67,3 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
     )
     List<Integer> getAvailableRoomNumbers(Date checkin, Date checkout, Integer room_id);
 }
-
-
-/*
-    будто можно упростить
-    ЗАПРОС НЕКОРРЕКТЕН!!!!!!!!!!!!!!!!!
-    @Query(value =
-            "SELECT distinct Id, Guests_Number, Price, Name, description FROM Room " +
-                    "INNER JOIN " +
-                    "(" +
-                        "SELECT Room_id " +
-                        "FROM BookingInfo " +
-                        "Group by Room_id, Check_in, Check_out " +
-                        "having not " +
-                        "(" +
-                            "Check_in <= :checkin AND Check_out >= :checkout OR " +
-                            "Check_in > :checkin AND Check_in < :checkout OR " +
-                            "Check_out > :checkin AND Check_out < :checkout " +
-                        ")" +
-                    ") as Table_Temp ON Room.Id = Table_Temp.Room_Id " +
-                    "Where guests_number >= :guestsnumber",
-            nativeQuery = true)
-    List<Room> findAvailableRooms(Date checkin, Date checkout, Integer guestsnumber);*/
