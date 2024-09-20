@@ -23,5 +23,8 @@ public class Room {
     private String name;
 
     @OneToMany(mappedBy = "room_id", cascade = CascadeType.ALL)
-    private List<RoomImagePath> image_paths = new ArrayList<>();
+    private List<RoomImagePath> image_paths;
+
+//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+//    private List<BookingInfoEntity> bookingInfoEntityList;
 }

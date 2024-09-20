@@ -4,20 +4,100 @@ body {
     padding: 0;
 }
 
+.main-container {
+  max-width: 1350px;
+  width: 80%;
+  margin-left: calc((100% - 1350px)/2);
+}
+
+.up-container {
+  max-width: 1350px;
+  display: flex;
+  width: 100%;
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.hotel-card {
+  position: absolute;
+  right: 0;
+  width: 22.5%;
+  border: 1px solid #bcbcbc;
+  border-radius: 10px;
+}
+
+.hotel-card .info {
+  margin: 0px 0px 10px 10px;
+}
+
+.hotel-card h4 {
+  margin: 13px 0px 8px 0px;
+}
+
+.hotel-card .address {
+  margin: 0px 0px 10px 0px;
+}
+
+.without-hotel-card {
+  width: 70%;
+}
+
+.hotel-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.hotel-amenities {
+
+}
+
+.number-and-taxes {
+  display: flex;
+  margin-bottom: 20px;
+  max-width: 1350px;
+  position: relative;
+}
+
+.number-and-taxes .taxes {
+  position: absolute;
+  right: 0;
+}
+
+.number-and-taxes .room-number {
+  margin-right: 46.5%;
+}
+
+.selected-nav {
+  display: flex;
+}
+
+.room-edit-button {
+  border-radius: 20px;
+  margin-right: 15px;
+  padding: 0;
+  width: 90px;
+  height: 37px;
+}
+
 .room-card {
     text-align: center;
     max-width: 440px;
     max-height: 600px;
-    margin: 20px auto;
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
 }
 
+.room-card:hover {
+    box-shadow: 0 0 10px rgba(25, 25, 25, 0.5);
+}
 
 .room-card .main-img {
-    width: 440px;
-    height: 320px;
+   /* width: 440px;
+    height: 320px;*/
+    width: 100%;
+    height: auto;
 }
 
 .room-info {
@@ -32,16 +112,54 @@ h2 {
 
 .main-booking-button {
     font-size: 16px;
-    padding: 10px 130px;
+    width: 100%;
+    padding: 15px;
     background-color: gray;
     color: #fff;
     border: none;
     border-radius: 7px;
     cursor: pointer;
+    margin-bottom: 0px;
+    transition: all 0.3s;
 }
 
-.cards {
-  display: flex;
+.main-booking-button:hover {
+    color: white;
+    background-color: #93A5A4;
+}
+
+.cards-grid {
+    max-width: 1350px;
+    width: 100%;
+    /*margin: 0px auto;*/
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Используем auto-fit и minmax для динамического изменения количества ячеек */
+    grid-template-columns: repeat(3, 1fr); /* Используем auto-fit и minmax для динамического изменения количества ячеек */
+    gap: 10px;
+}
+
+@media (max-width: 1620px) {
+    .main-container {
+        margin-left: 10%;
+    }
+}
+
+/*@media (max-width: 1300px) {
+    .main-container {
+        margin-left: 10%;
+    }
+}*/
+
+@media (max-width: 1100px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 570px) {
+    .cards-grid {
+        grid-template-columns: 1fr; /* При уменьшении окна до 400px останется только одна ячейка */
+    }
 }
 
 p {

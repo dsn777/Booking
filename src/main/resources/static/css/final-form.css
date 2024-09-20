@@ -1,38 +1,145 @@
+@font-face {
+  font-family: "Proxima Nova";
+  src: url('C:/Users/rev93/Desktop/Proxima Nova/proximanova_regular.ttf') format('truetype');
+
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Proxima Nova', sans-serif;
   margin: 0;
 }
-.form-container {
-  width: 100%;
+
+.page-container {
+  /*   max-width: 1350px; */
+  max-width: 950px;
   padding: 20px;
-  border: 1px solid #ccc;
-  margin: 25px;
+  margin: 25px auto;
+}
+
+/* ВСЕ О ВЕРХНЕМ БЛОКЕ С ИНФОРМАЦИЕЙ ОБ ОПЛАТЕ И ГОСТЕ ВКЛЮЧАЯ ДВЕ ПОЛОСКИ РАЗДЕЛИТЕЛЕЙ */
+.total-container .internal-content {
+  font-size: 16px;
+  font-weight: 100;
+  margin: 15px;
+  position: relative;
+}
+
+.total-container h1 {
+  margin-bottom: 8px;
+  font-size: 35px;
+  font-weight: 800;
+  letter-spacing: -1.75px;
+}
+
+.total-container h2 {
+  color: gray;
+  margin: 0px;
+  font-size: 29px;
+}
+
+.total-container .row {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.total-container .row .right {
+  margin-right: 0px;
+  position: absolute;
+  right: 0px;
+}
+
+.total-container .first-divider .divider {
+  height: 4px;
+  margin-bottom: 0px;
+  background-color: gray;
+}
+.total-container .second-divider .divider {
+  height: 3px;
+  background-color: gray;
+  margin-bottom: 15px;
 }
 
 .label-and-icon {
-  margin-left: calc(4% - 58px);
+  font-family: "Raleway", system-ui;
+  margin-left: 0px;
+  letter-spacing: 0.55px;
   display: flex;
 }
 
-.form-title {
+/*БЛОК С ВАЖНОЙ ИНФОРМАЦИЕЙ ПЕРЕД ПРИБЫТИЕМ*/
+.important-info {
+  font-size: 14px;
+}
+
+.important-info b {
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
+/*БЛОК С ГАРАНТИЕЙ И ПРАВИЛАМИ ОТМЕНЫ*/
+.guarantee {
+  font-family: "Raleway", system-ui;
   font-size: 16px;
-  font-weight: bold;
+}
+
+.guarantee div {
+  border: 1px solid gray;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 0px 3px 1px 3px;
+  border-radius: 20px;
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.form-title {
+  font-size: 17px;
+  font-weight: 700;
   margin-top: 15px;
   margin-left: 10px;
   padding-bottom: 0px;
-
 }
-.form-divider {
+
+.divider {
   height: 1px;
-  background-color: #ccc;;
+  background-color: #ccc;
   width: 100%;
-  max-width: 820px;
-  margin-bottom: 27px;
 
+  margin-bottom: 27px;
 }
+
+.content {
+  margin-left: 58px;
+  margin-bottom: 18px;
+}
+
 .form-group {
   margin-bottom: 18px;
-  margin-left: 4%;
+}
+
+
+.country {
+  width: 100px;
+}
+
+/*МЕСЯЦ И ГОД В НОМЕРЕ КАРТЫ*/
+.month-and-year {
+  display: flex;
+}
+
+.month-and-year select {
+  width: 230px;
+}
+
+.month-and-year .month {
+  margin-right: 14px;
+}
+
+.month-and-year .year {
+  margin-left: 0px;
 }
 
 label {
@@ -42,40 +149,105 @@ label {
   font-weight: 600;
 }
 
+.form-group .country {
+  width: 472px;
+  height: 42px;
+}
+
+
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 select {
-  max-width: 422px;
-  width: 40%;
-  height: 35px;
+  width: 468px;
+  height: 38px;
   margin: 0px 0 0px 0;
-  border: 1px solid #DCDCDC;
-  border-radius: 3px;
+  border: 1px solid #8b8b8b;
 }
 
 .submit-btn {
-  background-color: #4caf50;
+  background-color: gray;
+  font-size: 20px;
+  font-weight: 700;
   color: white;
-  padding: 14px 20px;
+  padding: 12px 20px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%;
+  width: 317px;
+  transition: all 0.3s;
 }
 
 .submit-btn:hover {
-  background-color: #45a049;
+  background-color: #4E5754;
 }
-
 
 .material-symbols-outlined {
   font-size: 150px;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
+/* Все о РАЗДЕЛЕ ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ */
+
+.additional-services-container {
+  font-size: 17px;
+}
+
+.toggle-button {
+  margin: 0px;
+  background-color: white;
+  color: #114c98;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  padding: 20px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.additional-services-container .divider {
+  margin-bottom: 0px;
+}
+
+.additional-services-container svg {
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.additional-services {
+  display: none; /* Скрываем информацию по умолчанию */
+  margin: 0px;
+}
+
+.additional-services .hidden-content {
+  padding: 15px;
+  line-height: 23px;
+  letter-spacing: 0.1px;
+}
+
+.additional-services .parking-info {
+  background-color: #f1f1f1;
+  padding: 15px;
+}
+
+.additional-services .pet-info {
+  margin-top: 12px;
+  padding: 10px;
+}
+
+.additional-services h4 {
+  margin: 0 0 5px 0;
+}
+
+/* Все о правилах и соглашении при бронировании */
+.rules-and-agreement-container {
+  margin: 35px 10px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 0.4px;
+  line-height: 22px;
+}

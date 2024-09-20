@@ -1,83 +1,75 @@
 package com.example.Booking.Controllers;
 
 import com.example.Booking.Entity.Room;
-import com.example.Booking.Entity.RoomImagePath;
-import com.example.Booking.Models.BookingData;
-import com.example.Booking.Repositories.ImageRepository;
-import com.example.Booking.Repositories.RoomRepository;
-import jakarta.servlet.http.HttpSession;
+import com.example.Booking.ModelAndSessionNames;
+import com.example.Booking.Services.RoomService;
+import com.example.Booking.Services.SessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
 @RequestMapping("/book")
-@SessionAttributes("rooms")
 public class RoomController {
 
-    private final RoomRepository roomRepository;
-    private final ImageRepository imageRepository;
+    private final SessionService sessionService;
+    private final RoomService roomService;
+    private Integer selectable_room = 1;
+
 
     @Autowired
-    public RoomController(RoomRepository roomRepository, ImageRepository imageRepository) {
-        this.roomRepository = roomRepository;
-        this.imageRepository = imageRepository;
+    public RoomController(SessionService sessionService,
+                          RoomService roomService) {
+        this.sessionService = sessionService;
+        this.roomService = roomService;
     }
 
+    
     @GetMapping("/rooms")
-    public String getRooms(BookingData bookingData,
-                           Model model,
-                           HttpSession session) {
+    public String mapToSessionBookingRequestList(@RequestParam Map<String, String> params) {
+        this.selectable_room = 1;
+        roomService.mapToSessionBookingRequestList(params);
+        return "redirect:/book/rooms/" + selectable_room;
+    }
 
-        log.info("request params : " + bookingData.toString());
-        List<Room> rooms = (bookingData.incomplete()) ?
-                roomRepository.findAll() :
-                roomRepository.findAvailableRooms(
-                        bookingData.getCheckin(),
-                        bookingData.getCheckout(),
-                        bookingData.getGuestsNumber()
-                );
-        //СФОРМИРОВАТЬ ПРАЙС СУДЯ ПО ДАТАМ И ЦЕНЕ
-        session.setAttribute("bookingData", bookingData);
-        model.addAttribute("rooms", rooms);
+
+    @GetMapping("/rooms/{selectable_room}")
+    public String roomsToSelect(@PathVariable int selectable_room,
+                                Model model) {
+        this.selectable_room = selectable_room;
+
+        List<Room> findedRooms =
+                roomService.roomsToSelect(selectable_room);
+        List<Room> selectedRooms =
+                sessionService.getSafeAttributes(ModelAndSessionNames.SELECTED_ROOMS, Room.class);
+
+        model.addAttribute(ModelAndSessionNames.SELECTED_ROOMS, selectedRooms);
+        model.addAttribute(ModelAndSessionNames.FINDED_ROOMS, findedRooms);
+
         return "rooms";
     }
 
-    @GetMapping("/create_form")
-    public String createForm(HttpSession httpSession,
-                             Model model,
-                             SessionStatus status,
-                             @PathVariable(name = "room_id", required = false) Integer id) {
-        if (id == null)
-            id = 1;
 
-        List<Room> rooms = (List<Room>) model.getAttribute("rooms");
-        Room sessionRoom = rooms.get(id);
-        httpSession.setAttribute("room", sessionRoom);
-        log.info(sessionRoom.toString());
-        status.setComplete();
+    @GetMapping("/select_room/{id}")
+    public String selectRoom(@PathVariable("id") Room room) {
+        List<Room> selectedRooms
+                = sessionService.getSafeAttributes(ModelAndSessionNames.SELECTED_ROOMS, Room.class); //достаем из сессии и пихаем новый Room
+        selectedRooms.set(selectable_room - 1, room);
+        sessionService.setAttribute(ModelAndSessionNames.SELECTED_ROOMS, selectedRooms);
 
-        return "redirect:/book/reservation";
+        return selectable_room != selectedRooms.size() ?
+                "redirect:/book/rooms/" + ++selectable_room :
+                "redirect:/book/reservation";
     }
-
-    /*@GetMapping("/rest_rooms")
-    @ResponseBody
-    public List<Room> rooms(@RequestParam(required = false) Integer id) {
-        return (id == null) ?
-                roomRepository.findAll() :
-                List.of(roomRepository.findById(id).orElse(new Room()));
-    }
-
-    @GetMapping("/rest_images")
-    @ResponseBody
-    public List<RoomImagePath> images() {
-        return imageRepository.findAll();
-    }*/
-
 }
+
+

@@ -1,5 +1,4 @@
 const btnDescriptions = document.querySelectorAll('.btn-description');
-
 btnDescriptions.forEach(btn => {
     btn.addEventListener('click', () => {
         const roomCard = btn.closest('.room-card');
@@ -52,3 +51,12 @@ btnCloses.forEach(btn => {
         descriptionPopup.style.display = 'none';
     });
 });
+
+/*
+const roomCards = document.querySelectorAll('.room-card');
+ roomCards.forEach(card => {
+  card.addEventListener('click', () => {
+       const button = card.querySelector('.btn-description');
+       button.click();
+   });
+ });*/
