@@ -3,6 +3,7 @@ package com.example.Booking.Controllers;
 import com.example.Booking.Entity.BookingInfoEntity;
 import com.example.Booking.Entity.GuestInfoEntity;
 import com.example.Booking.Entity.Room;
+import com.example.Booking.ModelAndSessionNames;
 import com.example.Booking.Models.BookingRequest;
 import com.example.Booking.Models.CardModel;
 import com.example.Booking.Models.GuestInfoModel;
@@ -50,17 +51,18 @@ public class GuestInfoController {
     @GetMapping("/book/reservation")
     public String createForm(Model model) {
 
-        List<BookingRequest> bookingRequestList
-                = sessionService.getSafeAttributes("booking_request_list", BookingRequest.class);
-        List<Room> selectedRooms
-                = sessionService.getSafeAttributes("selected_rooms", Room.class);
-
-        if (bookingRequestList == null || selectedRooms == null)
+        if (sessionService.isEmpty())
             return "redirect:/book";
 
-        String totalPrice = roomService.getTotalRoomsPrice(bookingRequestList, selectedRooms);
-        model.addAttribute("selected_rooms", selectedRooms);
-        model.addAttribute("total_price", totalPrice);
+        List<BookingRequest> bookingRequestList
+                = sessionService.getSafeAttributes(ModelAndSessionNames.BOOKING_REQUEST_LIST, BookingRequest.class);
+        List<Room> selectedRooms
+                = sessionService.getSafeAttributes(ModelAndSessionNames.SELECTED_ROOMS, Room.class);
+        String totalPrice
+                = roomService.getTotalRoomsPrice(bookingRequestList, selectedRooms);
+
+        model.addAttribute(ModelAndSessionNames.SELECTED_ROOMS, selectedRooms);
+        model.addAttribute(ModelAndSessionNames.TOTAL_PRICE, totalPrice);
 
         return "final-form";
     }
@@ -69,34 +71,32 @@ public class GuestInfoController {
     @ResponseBody
     @Transactional
     public synchronized ResponseEntity<?> makeReservation(@ModelAttribute CardModel cardModel,
-                                                               @ModelAttribute GuestInfoModel guestInfoModel) {
-        //Сохраняем гостя
-        List<BookingInfoEntity> totalList = new ArrayList<>();
+                                                          @ModelAttribute GuestInfoModel guestInfoModel) {
 
+        List<BookingInfoEntity> totalList = new ArrayList<>();
         GuestInfoEntity thisGuest = guestInfoModel.toEntity();
         guestService.saveGuest(thisGuest);
 
         List<BookingRequest> bookingRequestList
-                = sessionService.getSafeAttributes("booking_request_list", BookingRequest.class);
+                = sessionService.getSafeAttributes(ModelAndSessionNames.BOOKING_REQUEST_LIST, BookingRequest.class);
         List<Room> selectedRooms
-                = sessionService.getSafeAttributes("selected_rooms", Room.class);
+                = sessionService.getSafeAttributes(ModelAndSessionNames.SELECTED_ROOMS, Room.class);
 
         BookingRequest first = bookingRequestList.getFirst();
         Date checkin = first.getCheckin();
         Date checkout = first.getCheckout();
-        String guestsNumber = String.valueOf(first.getAdults() + first.getChildren());
+        Integer guestsNumber = first.getAdults() + first.getChildren();
 
 
         //Для каждого номера формируем заявку
         for (Room room : selectedRooms) {
-            BookingInfoEntity bookingInfo;
-
             //находим первый подходящий номер по категории
-            String availableRoomNumber = roomService.getAvailableRoomNumbers(
+            Integer availableRoomNumber = roomService.getAvailableRoomNumbers(
                     checkin,
                     checkout,
                     room.getId()
             ).getFirst();
+
 
             //проверка
             if (availableRoomNumber == null)
@@ -104,7 +104,7 @@ public class GuestInfoController {
                         .body("Вероятно номер был забронирован, повторите попытку");
 
             //сохраняем в БД
-            bookingInfo = new BookingInfoEntity();
+            BookingInfoEntity bookingInfo = new BookingInfoEntity();
             bookingInfo.setCheck_out(checkout);
             bookingInfo.setCheck_in(checkin);
             bookingInfo.setGuest(thisGuest); // сюда реального гостя из Model
@@ -122,6 +122,8 @@ public class GuestInfoController {
         //вспомнить данные из сессии и добавить в bookingDataEntity все вместе
         //guestRepo.save(guestInfoModel)
         //bookingDataRepo.save();.....
+        sessionService.clear();
+
         return ResponseEntity.ok(totalList);
     }
 

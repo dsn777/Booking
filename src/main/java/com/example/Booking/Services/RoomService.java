@@ -3,11 +3,11 @@ package com.example.Booking.Services;
 import com.example.Booking.BookingRequestListCreator;
 import com.example.Booking.DTO.RoomCountDTO;
 import com.example.Booking.Entity.Room;
+import com.example.Booking.ModelAndSessionNames;
 import com.example.Booking.Models.BookingRequest;
 import com.example.Booking.Repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -34,18 +34,17 @@ public class RoomService {
         for (int i = 0; i < bookingRequestList.size(); i++)
             selectedRooms.add(new Room());
 
-        sessionService.setAttribute("booking_request_list", bookingRequestList);
-        sessionService.setAttribute("selected_rooms", selectedRooms);
+        sessionService.setAttribute(ModelAndSessionNames.BOOKING_REQUEST_LIST, bookingRequestList);
+        sessionService.setAttribute(ModelAndSessionNames.SELECTED_ROOMS, selectedRooms);
     }
 
 
-    public void roomsToSelect(Integer selectable_room,
-                              Model model) {
-        List<Room> selectedRooms =
-                sessionService.getSafeAttributes("selected_rooms", Room.class);
-        List<BookingRequest> bookingRequestList =
-                sessionService.getSafeAttributes("booking_request_list", BookingRequest.class);
+    public List<Room> roomsToSelect(Integer selectable_room) {
 
+        List<BookingRequest> bookingRequestList =
+                sessionService.getSafeAttributes(ModelAndSessionNames.BOOKING_REQUEST_LIST, BookingRequest.class);
+
+        //Получили параметры брони для дальнейшего запроса в БД
         BookingRequest bookingRequest = bookingRequestList.get(selectable_room - 1);
 
         //Запрос в БД с этими параметрами брони
@@ -57,9 +56,7 @@ public class RoomService {
 
         /* ----------   Здесь нужно вычесть выбранные данные... -------- */
 
-        //передача данных с учетом вычтенных
-        model.addAttribute("selected_rooms", selectedRooms);
-        model.addAttribute("finded_rooms", findedRooms);
+        return findedRooms;
     }
 
     public Room getRoomToSelect(Integer id) {
@@ -93,7 +90,7 @@ public class RoomService {
         );
     }
 
-    public List<String> getAvailableRoomNumbers(Date checkin,
+    public List<Integer> getAvailableRoomNumbers(Date checkin,
                                                 Date checkout,
                                                 int room_id) {
         return roomRepository.getAvailableRoomNumbers(

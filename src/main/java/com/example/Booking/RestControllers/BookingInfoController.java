@@ -5,11 +5,9 @@ import com.example.Booking.Entity.GuestInfoEntity;
 import com.example.Booking.Entity.Room;
 import com.example.Booking.Repositories.BookingInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/booking_info/")
@@ -33,10 +31,10 @@ public class BookingInfoController {
     @PostMapping("/add")
     public BookingInfoEntity getBookingInfo(@RequestParam Date check_in,
                                             @RequestParam Date check_out,
-                                            @RequestParam String guests_number,
+                                            @RequestParam Integer guests_number,
                                             @RequestParam Room room_id,
                                             @RequestParam GuestInfoEntity guest_id,
-                                            @RequestParam String room_number) {
+                                            @RequestParam Integer room_number) {
         BookingInfoEntity infoEntity = new BookingInfoEntity();
         infoEntity.setCheck_in(check_in);
         infoEntity.setCheck_out(check_out);

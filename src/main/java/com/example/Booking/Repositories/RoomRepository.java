@@ -3,7 +3,6 @@ package com.example.Booking.Repositories;
 
 import com.example.Booking.DTO.RoomCountDTO;
 import com.example.Booking.Entity.Room;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,23 +11,22 @@ import java.util.List;
 
 
 public interface RoomRepository extends CrudRepository<Room, Integer> {
-    //будто можно упростить
-    //ЗАПРОС НЕКОРРЕКТЕН!!!!!!!!!!!!!!!!!
+
     @Query(value =
-            "SELECT distinct Id, Guests_Number, Price, Name, description FROM Room " +
-                    "INNER JOIN " +
-                    "(" +
-                        "SELECT Room_id " +
-                        "FROM BookingInfo " +
-                        "Group by Room_id, Check_in, Check_out " +
-                        "having not " +
+                    "SELECT * FROM room " +
+                    "WHERE " +
+                    "guests_number >= :guestsnumber " +
+                    "AND " +
+                    "id NOT IN " +
+                    "( " +
+                        "SELECT DISTINCT room_id FROM bookinginfo " +
+                        "WHERE " +
                         "(" +
-                            "Check_in <= :checkin AND Check_out >= :checkout OR " +
-                            "Check_in > :checkin AND Check_in < :checkout OR " +
-                            "Check_out > :checkin AND Check_out < :checkout " +
-                        ")" +
-                    ") as Table_Temp ON Room.Id = Table_Temp.Room_Id " +
-                    "Where guests_number >= :guestsnumber",
+                            "check_in >= :checkin AND check_in < :checkout OR " +
+                            "check_out > :checkin AND check_out <= :checkout OR " +
+                            "check_in <= :checkin AND check_out >= :checkout " +
+                        ") " +
+                    ") ",
             nativeQuery = true)
     List<Room> findAvailableRooms(Date checkin, Date checkout, Integer guestsnumber);
 
@@ -51,7 +49,7 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
     )
     List<RoomCountDTO> getRoomCounts(Date checkin, Date checkout, Integer guestsnumber);
 
-    @Query (
+    @Query(
             value = "SELECT DISTINCT room_number " +
                     "FROM BookingInfo " +
                     "WHERE room_id = :room_id " +
@@ -67,7 +65,27 @@ public interface RoomRepository extends CrudRepository<Room, Integer> {
                     ")",
             nativeQuery = true
     )
-    List<String> getAvailableRoomNumbers(Date checkin, Date checkout, Integer room_id);
-    //List<Room> availableRooms(Date checkin, Date checkout);
-    //List<Room> findRoomsWithParams(Date checkin, Date checkout, Integer guestsnumber)
+    List<Integer> getAvailableRoomNumbers(Date checkin, Date checkout, Integer room_id);
 }
+
+
+/*
+    будто можно упростить
+    ЗАПРОС НЕКОРРЕКТЕН!!!!!!!!!!!!!!!!!
+    @Query(value =
+            "SELECT distinct Id, Guests_Number, Price, Name, description FROM Room " +
+                    "INNER JOIN " +
+                    "(" +
+                        "SELECT Room_id " +
+                        "FROM BookingInfo " +
+                        "Group by Room_id, Check_in, Check_out " +
+                        "having not " +
+                        "(" +
+                            "Check_in <= :checkin AND Check_out >= :checkout OR " +
+                            "Check_in > :checkin AND Check_in < :checkout OR " +
+                            "Check_out > :checkin AND Check_out < :checkout " +
+                        ")" +
+                    ") as Table_Temp ON Room.Id = Table_Temp.Room_Id " +
+                    "Where guests_number >= :guestsnumber",
+            nativeQuery = true)
+    List<Room> findAvailableRooms(Date checkin, Date checkout, Integer guestsnumber);*/

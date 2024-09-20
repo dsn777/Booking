@@ -36,4 +36,8 @@ public class SessionService {
     public void clear() {
         this.httpSession.invalidate();
     }
+
+    public boolean isEmpty() {
+        return !this.httpSession.getAttributeNames().hasMoreElements();
+    }
 }

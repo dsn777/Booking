@@ -13,27 +13,22 @@ import java.util.UUID;
 @Getter
 @Setter
 public class BookingInfoEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private Date check_in;
     private Date check_out;
-    private String guests_number;
+    private Integer guests_number;
 
-    //mapping
-    //@OneToMany
     @ManyToOne
     @JoinColumn(name = "room_id")
     @JsonManagedReference
     private Room room;
-    //mapping
+
     @ManyToOne
     @JoinColumn(name = "guest_id")
     @JsonManagedReference
     private GuestInfoEntity guest;
-    private String room_number;
+    private Integer room_number;
 }
