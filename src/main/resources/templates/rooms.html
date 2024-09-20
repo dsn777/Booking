@@ -23,7 +23,6 @@
             <div class="selected-nav">
                 <div class="room-select-link-button" th:each="room, stat : ${selected_rooms}">
                     <form th:action="@{/book/rooms/{index}(index=${stat.index + 1})}" method="GET">
-<!--                    <form th:action="@{/book/rooms/{stat.index + 1}}" method="GET">-->
                        <input type="hidden" name="" th:value="${stat.index + 1}">
                         <button type="submit" class="room-edit-button" th:text="'Номер ' + ${stat.index + 1}">
                         </button>
@@ -86,22 +85,11 @@
                     </button>
                 </div>
 
-                <!--<form th:action="${required_rooms_number == 1 ? '/book/create_form/' : '/book/select_room?id='} + ${room.id}"
-                      method="GET">
-                    <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
-                    </button>
-                </form>-->
-
                 <form th:action="${'/book/select_room/'} + ${room.id}"
                       method="GET">
                     <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
                     </button>
                 </form>
-
-                <!-- <form method="GET" action="/book/create_form">
-                     <button class="main-booking-button" th:text="'Забронировать от ' + ${room.price} + '₽'"> ЦЕНА НОМЕРА
-                     </button>
-                 </form>-->
 
                 <div class="description-popup">
                     <div class="description-content">
@@ -142,11 +130,3 @@
 </div>
 </body>
 </html>
-
-
-<!--<img src="https://www.hilton.com/im/en/LEDHIHI/2533884/twin-guest-room-room-shot-2.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
-                                alt="Изображение 1">
-                           <img src="https://www.hilton.com/im/en/LEDHIHI/16470419/twin-courtyard-view.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
-                                alt="Изображение 2">
-                           <img src="https://www.hilton.com/im/en/LEDHIHI/3050001/king-guest-room-bathroom.jpg?impolicy=crop&cw=4387&ch=3000&gravity=NorthWest&xposition=56&yposition=0&rw=740&rh=506"
-                                alt="Изображение 3">-->

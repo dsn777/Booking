@@ -10,13 +10,6 @@
 
 <body>
 
-<!--   <h1>Краткое описание бронирования:</h1>
-<div th:each="room : ${selected_rooms}">
-  <p th:text="${room.price} + '₽'"> ЦЕНА НОМЕРА</p>
-  <p th:text="${room.name}"></p>
-  <p th:text="${room.guests_number}"></p>
-</div> -->
-
 <div class="page-container">
     <div class="total-container">
         <h1> Информация об оплате и госте </h1>
@@ -190,10 +183,6 @@
                     <label for="lastname">Фамилия</label>
                     <input type="text" id="lastname" name="lastname">
                 </div>
-               <!-- <div class="form-group">
-                    <label for="patronymic">Отчество</label>
-                    <input type="text" id="patronymic" name="patronymic">
-                </div>-->
                 <div class="form-group">
                     <label for="email">Электронная почта</label>
                     <input type="email" id="email" name="email">
@@ -202,13 +191,11 @@
                     <label for="phone">Телефон</label>
                     <input type="tel" id="phone" name="phone" >
                 </div>
-
                 <div class="form-group">
                     <label for="country">Страна/регион</label>
                     <select class="country" id="country" name="country">
                         <option value="Россия">Россия</option>
                         <option value="Беларусь">Беларусь</option>
-                        <!-- Добавьте дополнительные опции здесь -->
                     </select>
                 </div>
             </div>
